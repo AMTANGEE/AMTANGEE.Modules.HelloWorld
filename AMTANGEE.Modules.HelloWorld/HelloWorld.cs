@@ -452,40 +452,6 @@ namespace AMTANGEE.Modules.HelloWorld
             }
         }
 
-        public IDictionary<global::DevExpress.XtraBars.BarItem, bool> SubMenuEntries(Contacts contacts, Campaign campaign, Members campaignMembers)
-        {
-            var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
-
-            DevExpress.XtraBars.BarItem bi = new DevExpress.XtraBars.BarButtonItem();
-            bi.Caption = "Hello World 1";
-            bi.ItemClick += Bi_ItemClick;
-            result.Add(bi, true);
-
-            DevExpress.XtraBars.BarItem bi2 = new DevExpress.XtraBars.BarButtonItem();
-            bi2.Caption = "Hello World 2";
-            bi2.ItemClick += Bi_ItemClick;
-            result.Add(bi2, false);
-
-            return result;
-        }
-
-        public IDictionary<global::DevExpress.XtraBars.BarItem, bool> SubMenuEntries(ContactBase contact, Campaign campaign, Member member)
-        {
-            var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
-
-            DevExpress.XtraBars.BarItem bi = new DevExpress.XtraBars.BarButtonItem();
-            bi.Caption = "Hello World 1";
-            bi.ItemClick += Bi_ItemClick;
-            result.Add(bi, true);
-
-            DevExpress.XtraBars.BarItem bi2 = new DevExpress.XtraBars.BarButtonItem();
-            bi2.Caption = "Hello World 2";
-            bi2.ItemClick += Bi_ItemClick;
-            result.Add(bi2, false);
-
-            return result;
-        }
-
         private void Bi_ItemClick(object sender, ItemClickEventArgs e)
         {
             AMTANGEE.SDK.MessageBox.Show("Entry '" + e.Item.Caption + "' clicked!");
@@ -499,6 +465,45 @@ namespace AMTANGEE.Modules.HelloWorld
         public bool Visible(ContactBase contact)
         {
             return true;
+        }
+
+        public IDictionary<BarItem, bool> SubMenuEntries(ContactBase contact, Campaign campaign, Member member)
+        {
+            var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
+
+            DevExpress.XtraBars.BarItem bi = new DevExpress.XtraBars.BarButtonItem();
+            bi.Caption = "Hello World 1";
+            bi.ItemClick += Bi_ItemClick;
+            result.Add(bi, true);
+
+            DevExpress.XtraBars.BarItem bi2 = new DevExpress.XtraBars.BarButtonItem();
+            bi2.Caption = "Hello World 2";
+            bi2.ItemClick += Bi_ItemClick;
+            result.Add(bi2, false);
+
+            return result;
+        }
+
+        public void Clicked(Contacts contacts)
+        {
+            SDK.MessageBox.Show("Entry clicked");
+        }
+
+        public IDictionary<BarItem, bool> SubMenuEntries(Contacts contacts, Campaign campaign, Members campaignMembers)
+        {
+            var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
+
+            DevExpress.XtraBars.BarItem bi = new DevExpress.XtraBars.BarButtonItem();
+            bi.Caption = "Hello World 1";
+            bi.ItemClick += Bi_ItemClick;
+            result.Add(bi, true);
+
+            DevExpress.XtraBars.BarItem bi2 = new DevExpress.XtraBars.BarButtonItem();
+            bi2.Caption = "Hello World 2";
+            bi2.ItemClick += Bi_ItemClick;
+            result.Add(bi2, false);
+
+            return result;
         }
     }
 
@@ -556,9 +561,9 @@ namespace AMTANGEE.Modules.HelloWorld
         }
     }
 
-    public class HelloWorldMessageMenuPlugin : AMTANGEE.Interfaces.Messages.IMessageMenuPlugin
+    public class HelloWorldMessagesMenuPlugin : AMTANGEE.Interfaces.Messages.IMessageMenuPlugin, IMessagesMenuPlugin
     {
-        string IMessageMenuPlugin.Caption
+        public string Caption
         {
             get
             {
@@ -566,7 +571,7 @@ namespace AMTANGEE.Modules.HelloWorld
             }
         }
 
-        Image IMessageMenuPlugin.Image
+        public Image Image
         {
             get
             {
@@ -574,12 +579,12 @@ namespace AMTANGEE.Modules.HelloWorld
             }
         }
 
-        void IMessageMenuPlugin.Clicked(MessageBase message)
+        public void Clicked(MessageBase message)
         {
             AMTANGEE.SDK.MessageBox.Show("Entry clicked!");
         }
 
-        SDK.Dictionary<BarItem, bool> IMessageMenuPlugin.SubMenuEntries(MessageBase message)
+        public IDictionary<BarItem, bool> SubMenuEntries(MessageBase message)
         {
             var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
 
@@ -601,10 +606,36 @@ namespace AMTANGEE.Modules.HelloWorld
             AMTANGEE.SDK.MessageBox.Show("Entry '" + e.Item.Caption + "' clicked!");
         }
 
-        bool IMessageMenuPlugin.Visible(MessageBase message)
+        public bool Visible(MessageBase message)
         {
             return true;
         }
+
+        public bool Visible(Messages messages)
+        {
+            return true;
+        }
+
+        public void Clicked(Messages messages)
+        {
+            AMTANGEE.SDK.MessageBox.Show("Entry clicked!");
+        }
+
+        public IDictionary<BarItem, bool> SubMenuEntries(Messages messages)
+        {
+            var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
+
+            DevExpress.XtraBars.BarItem bi = new DevExpress.XtraBars.BarButtonItem();
+            bi.Caption = "Hello World 1";
+            bi.ItemClick += Bi_ItemClick;
+            result.Add(bi, true);
+
+            DevExpress.XtraBars.BarItem bi2 = new DevExpress.XtraBars.BarButtonItem();
+            bi2.Caption = "Hello World 2";
+            bi2.ItemClick += Bi_ItemClick;
+            result.Add(bi2, false);
+
+            return result;
+        }
     }
- 
 }

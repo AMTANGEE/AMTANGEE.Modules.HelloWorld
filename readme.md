@@ -6,7 +6,7 @@ This repository is for demonstrating the plugin interfaces in AMTANGEE
 
 * AMTANGEE Partner Key for signing the assembly
 * .NET Framework 4.61
-* AMTANGEE Version >= 6.0
+* AMTANGEE Version >= 6.0 Build 1607 Hotfix 4
 
 ## Feedback 
 
