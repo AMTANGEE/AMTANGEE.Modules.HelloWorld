@@ -13,6 +13,8 @@ using AMTANGEE.SDK;
 using AMTANGEE.SDK.Campaigns;
 using AMTANGEE.SDK.Contacts;
 using AMTANGEE.SDK.Messages;
+using AMTANGEE.SDK.Replication;
+using AMTANGEE.SDK.Users;
 using DevExpress.XtraBars;
 
 namespace AMTANGEE.Modules.HelloWorld
@@ -209,7 +211,7 @@ namespace AMTANGEE.Modules.HelloWorld
         {
             get
             {
-                if(sc ==null)
+                if (sc == null)
                     sc = new SettingsControl2();
                 sc.LoadData();
                 return sc;
@@ -367,7 +369,7 @@ namespace AMTANGEE.Modules.HelloWorld
 
         void IContactTabControlPlugin.ActivateField(string fieldName)
         {
-            
+
         }
 
         bool IContactTabControlPlugin.CanClose(bool escapePressed)
@@ -377,7 +379,7 @@ namespace AMTANGEE.Modules.HelloWorld
 
         void IContactTabControlPlugin.Create(ContactBase contact, IContactTabControl contactTabControl)
         {
-            if(ctpc == null)
+            if (ctpc == null)
                 ctpc = new ContactTabPluginControl();
             ctpc.LoadData(contact);
         }
@@ -467,7 +469,7 @@ namespace AMTANGEE.Modules.HelloWorld
             return true;
         }
 
-        public IDictionary<BarItem, bool> SubMenuEntries(ContactBase contact, Campaign campaign, Member member)
+        public IDictionary<BarItem, bool> SubMenuEntries(ContactBase contact, Campaign campaign, SDK.Campaigns.Member member)
         {
             var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
 
@@ -489,7 +491,7 @@ namespace AMTANGEE.Modules.HelloWorld
             SDK.MessageBox.Show("Entry clicked");
         }
 
-        public IDictionary<BarItem, bool> SubMenuEntries(Contacts contacts, Campaign campaign, Members campaignMembers)
+        public IDictionary<BarItem, bool> SubMenuEntries(Contacts contacts, Campaign campaign, SDK.Campaigns.Members campaignMembers)
         {
             var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
 
@@ -634,6 +636,78 @@ namespace AMTANGEE.Modules.HelloWorld
             bi2.Caption = "Hello World 2";
             bi2.ItemClick += Bi_ItemClick;
             result.Add(bi2, false);
+
+            return result;
+        }
+    }
+
+    public class HelloWorldMailMergeProvider : AMTANGEE.SDK.MailMerge.IProvider
+    {
+        public Image Image
+        {
+            get
+            {
+                return AMTANGEE.SDK.Resources.Images[Resources.ImageIndexes.Website];
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return "Accounts";
+            }
+        }
+
+        public bool Visible
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        AMTANGEE.SDK.Contacts.AccountType GetTypeByName(string name)
+        {
+            AMTANGEE.SDK.Contacts.AccountTypes types = new AccountTypes();
+
+            foreach (var t in types)
+            {
+                if (name.ToUpper().Trim() == "ACCOUNTS_" + t.Name.ToUpper().Trim())
+                    return t;
+            }
+            return null;
+        }
+
+        public string FieldData(ContactBase contact, Address address, User user, DateTime date, string field, string additionalInformation, bool isForExport, bool throwExceptionIfContactNeeded)
+        {
+            var type = GetTypeByName(field);
+            if (type == null)
+                return "";
+            
+            if (contact != null && contact.ExistsAndLoadedAndRights)
+            {
+                foreach (var a in contact.Accounts)
+                    if (a.Type == type)
+                        return a.AccountName;
+            }
+
+            return "";
+        }
+
+        public System.Collections.Generic.List<string> Fields(Location location, bool isForExport)
+        {
+            return FieldsAllLanguages(location, isForExport);
+        }
+
+        public System.Collections.Generic.List<string> FieldsAllLanguages(Location location, bool isForExport)
+        {
+            System.Collections.Generic.List<string> result = new System.Collections.Generic.List<string>();
+
+            AMTANGEE.SDK.Contacts.AccountTypes types = new AccountTypes();
+
+            foreach (var t in types)
+                result.Add("ACCOUNTS_" + t.Name.ToUpper().Trim());
 
             return result;
         }
