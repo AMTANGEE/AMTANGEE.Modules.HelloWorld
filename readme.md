@@ -6,12 +6,12 @@ This repository is for demonstrating the plugin interfaces in AMTANGEE
 
 * AMTANGEE Partner Key for signing the assembly
 * .NET Framework 4.61
-* AMTANGEE Version >= 6.0 Build 1607 Hotfix 4
+* AMTANGEE Version >= 6.0 Build 1630
 
 ## Feedback 
 
 * Send us an email at support@amtangee.com
-* File an issue here in [GitHub](https://github.com/AMTANGEE/Modules.HelloWorld/issues)
+* File an issue here in [GitHub](https://github.com/AMTANGEE/AMTANGEE.Modules.HelloWorld/issues)
 
 ## License
 

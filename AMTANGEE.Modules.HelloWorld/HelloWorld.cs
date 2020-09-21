@@ -197,10 +197,12 @@ namespace AMTANGEE.Modules.HelloWorld
             return true;
         }
 
-        void IAdministrationPlugin.Save()
+        bool IAdministrationPlugin.Save()
         {
             if (sc != null)
                 sc.SaveData();
+
+            return true;
         }
     }
 
@@ -290,10 +292,12 @@ namespace AMTANGEE.Modules.HelloWorld
             return true;
         }
 
-        void IAdministrationPlugin.Save()
+        bool IAdministrationPlugin.Save()
         {
             if (sc != null)
                 sc.SaveData();
+
+            return true;
         }
     }
 
@@ -469,7 +473,12 @@ namespace AMTANGEE.Modules.HelloWorld
             return true;
         }
 
-        public IDictionary<BarItem, bool> SubMenuEntries(ContactBase contact, Campaign campaign, SDK.Campaigns.Member member)
+        public void Clicked(Contacts contacts)
+        {
+            SDK.MessageBox.Show("Entry clicked");
+        }
+
+        public IDictionary<BarItem, bool> SubMenuEntries(ContactBase contact)
         {
             var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
 
@@ -486,12 +495,7 @@ namespace AMTANGEE.Modules.HelloWorld
             return result;
         }
 
-        public void Clicked(Contacts contacts)
-        {
-            SDK.MessageBox.Show("Entry clicked");
-        }
-
-        public IDictionary<BarItem, bool> SubMenuEntries(Contacts contacts, Campaign campaign, SDK.Campaigns.Members campaignMembers)
+        public IDictionary<BarItem, bool> SubMenuEntries(Contacts contacts)
         {
             var result = new SDK.Dictionary<DevExpress.XtraBars.BarItem, bool>();
 
