@@ -2,6 +2,18 @@
 
 This repository is for demonstrating the plugin interfaces in AMTANGEE
 
+Includes following interface samples:
+
+* ContactTabControlPlugin -> Tab for contact window
+* ContactWieverControl -> Tab for control under the contact list
+* ModuleControl -> Control for a module
+* SettingsControl -> Control for the administration
+* HelloWorldNewMenuPlugin -> adds a entry to the global "New" button
+* HelloWorldContactMenuPlugin -> adds a entry to the right click menu on a contact
+* HelloWorldMessageViewerPlugin -> Tab for control under the message list
+* HelloWorldMessagesMenuPlugin -> adds a entry to the right click menu on a message
+* HelloWorldMailMergeProvider -> adds a handler for mail merge
+
 ## Requirements
 
 * AMTANGEE Partner Key for signing the assembly
